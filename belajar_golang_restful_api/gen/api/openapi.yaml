@@ -1,0 +1,164 @@
+openapi: 3.0.3
+info:
+  description: API Spec for Category RESTful API
+  title: Category RESTful API
+  version: 1.0.0
+servers:
+- url: http://localhost:3000/api
+paths:
+  /categories:
+    get:
+      description: List All of Categories
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: Success Get All Categories
+      security: []
+      summary: List All Categories
+      tags:
+      - Category API
+      x-accepts: application/json
+    post:
+      description: Create new a Category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateorUpdateCategory'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: Success Create Category
+      security: []
+      summary: Create new a Category
+      tags:
+      - Category API
+      x-contentType: application/json
+      x-accepts: application/json
+  /categories/{categoryId}:
+    delete:
+      description: Delete Category by Id
+      parameters:
+      - description: Category Id
+        explode: false
+        in: path
+        name: categoryId
+        required: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+          description: Success delete category
+      security: []
+      summary: Delete Category by Id
+      tags:
+      - Category API
+      x-accepts: application/json
+    get:
+      description: Get Category by Id
+      parameters:
+      - description: Category Id
+        explode: false
+        in: path
+        name: categoryId
+        required: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: Success get category
+      security: []
+      summary: Get Category by Id
+      tags:
+      - Category API
+      x-accepts: application/json
+    put:
+      description: Update category by Id
+      parameters:
+      - description: Category Id
+        explode: false
+        in: path
+        name: categoryId
+        required: true
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateorUpdateCategory'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: Success get category
+      security: []
+      summary: Update category by Id
+      tags:
+      - Category API
+      x-contentType: application/json
+      x-accepts: application/json
+components:
+  schemas:
+    CreateorUpdateCategory:
+      example:
+        name: name
+      properties:
+        name:
+          type: string
+      type: object
+    Category:
+      example:
+        name: name
+        id: 6.027456183070403
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+      type: object
+    inline_response_200:
+      example:
+        code: 0.8008281904610115
+        data:
+          name: name
+          id: 6.027456183070403
+        status: status
+      properties:
+        code:
+          type: number
+        status:
+          type: string
+        data:
+          $ref: '#/components/schemas/Category'
+      type: object
+    inline_response_200_1:
+      example:
+        code: 0.8008281904610115
+        status: status
+      properties:
+        code:
+          type: number
+        status:
+          type: string
+      type: object
+  securitySchemes:
+    CategoryAuth:
+      description: Authentication for Category API
+      in: header
+      name: X-API-Key
+      type: apiKey
+
